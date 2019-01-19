@@ -1,0 +1,70 @@
+{
+  "name": "@capnp-js/builder-core",
+  "version": "0.4.0",
+  "description": "Read/write classes and their guts for Cap'n Proto built-in types.",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-transform-flow-strip-types": "^7.2.3",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/register": "^7.0.0",
+    "@capnp-js/builder-arena": "^0.4.0",
+    "@capnp-js/reader-arena": "^0.4.0",
+    "ava": "^1.0.0-rc.2",
+    "babel-eslint": "^10.0.1",
+    "del": "^3.0.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "flow-bin": "^0.86.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-eslint": "^4.0.2",
+    "gulp-ext-replace": "^0.3.0",
+    "gulp-jscc": "^1.0.0",
+    "gulp-uglify": "^3.0.1",
+    "jscc": "^1.0.0",
+    "rollup": "^0.67.1"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "refresh": "rm -f package-lock.json && npm run clean && npm unpublish --force && rm -rf node_modules/@capnp-js/ && npm run build && npm publish",
+    "clean": "gulp clean",
+    "test-flow": "flow check --show-all-errors --strip-root",
+    "test-unit": "ava",
+    "test": "npm run test-flow && npm run test-unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/capnp-js/builder-core.git"
+  },
+  "author": "Tim Popham",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/capnp-js/builder-core/issues"
+  },
+  "homepage": "https://github.com/capnp-js/builder-core",
+  "ava": {
+    "files": [
+      "test/unit/**/*.js"
+    ],
+    "require": [
+      "./test/register"
+    ]
+  },
+  "dependencies": {
+    "@capnp-js/bytes": "^0.4.0",
+    "@capnp-js/copy-pointers": "^0.4.0",
+    "@capnp-js/int64": "^0.4.0",
+    "@capnp-js/internal-error": "^0.4.0",
+    "@capnp-js/layout": "^0.4.0",
+    "@capnp-js/memory": "^0.4.0",
+    "@capnp-js/programmer-error": "^0.4.0",
+    "@capnp-js/read-data": "^0.4.0",
+    "@capnp-js/read-pointers": "^0.4.0",
+    "@capnp-js/reader-core": "^0.4.0",
+    "@capnp-js/tiny-uint": "^0.4.0",
+    "@capnp-js/uint64": "^0.4.0",
+    "@capnp-js/utf8": "^0.4.0",
+    "@capnp-js/write-data": "^0.4.0",
+    "@capnp-js/write-pointers": "^0.4.0"
+  }
+}
