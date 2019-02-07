@@ -10,11 +10,11 @@
     "@babel/register": "^7.0.0",
     "@capnp-js/builder-arena": "^0.4.0",
     "@capnp-js/reader-arena": "^0.4.0",
-    "ava": "^1.0.0-rc.2",
     "babel-eslint": "^10.0.1",
     "del": "^3.0.0",
     "eslint-plugin-flowtype": "^2.42.0",
     "flow-bin": "^0.86.0",
+    "flow-typed": "^2.5.1",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^4.0.2",
@@ -22,6 +22,8 @@
     "gulp-jscc": "^1.0.0",
     "gulp-uglify": "^3.0.1",
     "jscc": "^1.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.2.0",
     "rollup": "^0.67.1"
   },
   "scripts": {
@@ -29,7 +31,7 @@
     "refresh": "rm -f package-lock.json && npm run clean && npm unpublish --force && rm -rf node_modules/@capnp-js/ && npm run build && npm publish",
     "clean": "gulp clean",
     "test-flow": "flow check --show-all-errors --strip-root",
-    "test-unit": "ava",
+    "test-unit": "nyc --cache=false --reporter=html --reporter=text mocha --require @babel/register test/unit",
     "test": "npm run test-flow && npm run test-unit"
   },
   "repository": {
@@ -42,14 +44,6 @@
     "url": "https://github.com/capnp-js/builder-core/issues"
   },
   "homepage": "https://github.com/capnp-js/builder-core",
-  "ava": {
-    "files": [
-      "test/unit/**/*.js"
-    ],
-    "require": [
-      "./test/register"
-    ]
-  },
   "dependencies": {
     "@capnp-js/bytes": "^0.4.0",
     "@capnp-js/copy-pointers": "^0.4.0",
@@ -66,5 +60,27 @@
     "@capnp-js/utf8": "^0.4.0",
     "@capnp-js/write-data": "^0.4.0",
     "@capnp-js/write-pointers": "^0.4.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "8.9"
+          },
+          "modules": "commonjs"
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/transform-flow-strip-types"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ]
   }
 }
