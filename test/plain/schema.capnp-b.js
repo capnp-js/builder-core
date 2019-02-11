@@ -95,14 +95,14 @@ export class Leaves__CtorB implements StructCtorB<Leaves__InstanceR, Leaves__Ins
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, Leaves__InstanceR, Leaves__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, Leaves__InstanceR, Leaves__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {
@@ -317,14 +317,14 @@ export class Lists__CtorB implements StructCtorB<Lists__InstanceR, Lists__Instan
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, Lists__InstanceR, Lists__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, Lists__InstanceR, Lists__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {
@@ -622,14 +622,14 @@ export class Nesteds__CtorB implements StructCtorB<Nesteds__InstanceR, Nesteds__
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, Nesteds__InstanceR, Nesteds__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, Nesteds__InstanceR, Nesteds__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {

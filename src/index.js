@@ -53,10 +53,12 @@ export interface ReaderCtor<GUTS: AnyGutsR, R: {+guts: GUTS}> {
   reader(Ctor: CtorR<GUTS, R>): R;
 }
 
+//TODO: Consider removing `level` from `unref` and `disown` signatures.
 export interface CtorB<GUTS: AnyGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> {
   fromAny(guts: AnyGutsB): B;
   deref(level: uint, arena: ArenaB, ref: Word<SegmentB>): B;
   get(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | B;
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<GUTS, R, B>;
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<GUTS, R, B>;
   validate(p: Pointer<SegmentB>): void;
 }

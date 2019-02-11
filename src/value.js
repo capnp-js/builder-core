@@ -77,14 +77,14 @@ export class AnyValue {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<AnyGutsR, AnyValueR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<AnyGutsR, AnyValueR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void { // eslint-disable-line no-unused-vars
@@ -135,14 +135,14 @@ export class StructValue {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, StructValueR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, StructValueR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -218,14 +218,14 @@ export class ListValue {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<BoolListGutsR | NonboolListGutsR, ListValueR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<BoolListGutsR | NonboolListGutsR, ListValueR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {

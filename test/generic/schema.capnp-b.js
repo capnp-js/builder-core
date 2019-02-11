@@ -64,14 +64,14 @@ export class Trivial__CtorB implements StructCtorB<Trivial__InstanceR, Trivial__
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, Trivial__InstanceR, Trivial__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, Trivial__InstanceR, Trivial__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   intern(guts: StructGutsB): Trivial__InstanceB {
@@ -134,14 +134,14 @@ export class FirstNongeneric__CtorB implements StructCtorB<FirstNongeneric__Inst
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, FirstNongeneric__InstanceR, FirstNongeneric__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, FirstNongeneric__InstanceR, FirstNongeneric__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {
@@ -274,14 +274,14 @@ export class FirstNongeneric_FirstGeneric__CtorB<A_1_guts: AnyGutsR, A_1_r: {+gu
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, FirstNongeneric_FirstGeneric__InstanceR, FirstNongeneric_FirstGeneric__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, FirstNongeneric_FirstGeneric__InstanceR, FirstNongeneric_FirstGeneric__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {
@@ -475,14 +475,14 @@ export class FirstNongeneric_FirstGeneric_SecondNongeneric__CtorB<A_1_guts: AnyG
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, FirstNongeneric_FirstGeneric_SecondNongeneric__InstanceR<A_1_guts, A_1_r>, FirstNongeneric_FirstGeneric_SecondNongeneric__InstanceB<A_1_guts, A_1_r, A_1_b>> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, FirstNongeneric_FirstGeneric_SecondNongeneric__InstanceR<A_1_guts, A_1_r>, FirstNongeneric_FirstGeneric_SecondNongeneric__InstanceB<A_1_guts, A_1_r, A_1_b>> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {
@@ -566,14 +566,14 @@ export class FirstNongeneric_FirstGeneric_SecondNongeneric_SecondGeneric__CtorB<
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, FirstNongeneric_FirstGeneric_SecondNongeneric_SecondGeneric__InstanceR<B_1_guts, B_1_r, X_3_guts, X_3_r>, FirstNongeneric_FirstGeneric_SecondNongeneric_SecondGeneric__InstanceB<B_1_guts, B_1_r, B_1_b, X_3_guts, X_3_r, X_3_b>> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, FirstNongeneric_FirstGeneric_SecondNongeneric_SecondGeneric__InstanceR<B_1_guts, B_1_r, X_3_guts, X_3_r>, FirstNongeneric_FirstGeneric_SecondNongeneric_SecondGeneric__InstanceB<B_1_guts, B_1_r, B_1_b, X_3_guts, X_3_r, X_3_b>> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {
@@ -824,14 +824,14 @@ export class FirstNongeneric_FirstGeneric_SecondNongeneric_J_Inner__CtorB implem
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, FirstNongeneric_FirstGeneric_SecondNongeneric_J_Inner__InstanceR, FirstNongeneric_FirstGeneric_SecondNongeneric_J_Inner__InstanceB> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, FirstNongeneric_FirstGeneric_SecondNongeneric_J_Inner__InstanceR, FirstNongeneric_FirstGeneric_SecondNongeneric_J_Inner__InstanceB> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   intern(guts: StructGutsB): FirstNongeneric_FirstGeneric_SecondNongeneric_J_Inner__InstanceB {

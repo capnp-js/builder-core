@@ -91,14 +91,14 @@ export function structs<R: {+guts: StructGutsR}, B: ReaderCtor<StructGutsR, R>>(
       return isNull(ref) ? null : this.deref(level, arena, ref);
     }
 
+    static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, StructListR<R>, this> {
+      const p = arena.pointer(ref);
+      arena.zero(ref, 8);
+      return new Orphan(this, arena, p);
+    }
+
     static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, StructListR<R>, this> {
-      if (isNull(ref)) {
-        return null;
-      } else {
-        const p = arena.pointer(ref);
-        arena.zero(ref, 8);
-        return new Orphan(this, arena, p);
-      }
+      return isNull(ref) ? null : this.unref(level, arena, ref);
     }
 
     static validate(p: Pointer<SegmentB>): void {
@@ -223,14 +223,14 @@ export function lists<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, 
       return isNull(ref) ? null : this.deref(level, arena, ref);
     }
 
+    static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, ListListR<GUTS, R>, this> {
+      const p = arena.pointer(ref);
+      arena.zero(ref, 8);
+      return new Orphan(this, arena, p);
+    }
+
     static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, ListListR<GUTS, R>, this> {
-      if (isNull(ref)) {
-        return null;
-      } else {
-        const p = arena.pointer(ref);
-        arena.zero(ref, 8);
-        return new Orphan(this, arena, p);
-      }
+      return isNull(ref) ? null : this.unref(level, arena, ref);
     }
 
     static validate(p: Pointer<SegmentB>): void {
@@ -401,14 +401,14 @@ export class VoidList implements DataListB<void> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, VoidListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, VoidListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -499,14 +499,14 @@ export class BoolList implements DataListB<boolean>  {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<BoolListGutsR, BoolListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<BoolListGutsR, BoolListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -607,14 +607,14 @@ export class Int8List implements DataListB<i8> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, Int8ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, Int8ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -717,14 +717,14 @@ export class Int16List implements DataListB<i16> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, Int16ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, Int16ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -827,14 +827,14 @@ export class Int32List implements DataListB<i32> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, Int32ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, Int32ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -937,14 +937,14 @@ export class Int64List implements DataListB<Int64> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, Int64ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, Int64ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -1065,14 +1065,14 @@ export class UInt8List implements DataListB<u8> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, UInt8ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, UInt8ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -1175,14 +1175,14 @@ export class UInt16List implements DataListB<u16> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, UInt16ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, UInt16ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -1285,14 +1285,14 @@ export class UInt32List implements DataListB<u32> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, UInt32ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, UInt32ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -1393,14 +1393,14 @@ export class UInt64List implements DataListB<UInt64> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, UInt64ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, UInt64ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -1521,14 +1521,14 @@ export class Float32List implements DataListB<f32> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, Float32ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, Float32ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
@@ -1633,14 +1633,14 @@ export class Float64List implements DataListB<f64> {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, Float64ListR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, Float64ListR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {

@@ -112,14 +112,14 @@ export class S__CtorB<A_0_guts: AnyGutsR, A_0_r: {+guts: A_0_guts}, A_0_b: Reade
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<StructGutsR, S__InstanceR<A_0_guts, A_0_r, B_0_guts, B_0_r>, S__InstanceB<A_0_guts, A_0_r, A_0_b, B_0_guts, B_0_r, B_0_b>> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<StructGutsR, S__InstanceR<A_0_guts, A_0_r, B_0_guts, B_0_r>, S__InstanceB<A_0_guts, A_0_r, A_0_b, B_0_guts, B_0_r, B_0_b>> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   validate(p: Pointer<SegmentB>): void {

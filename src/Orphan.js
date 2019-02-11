@@ -13,10 +13,10 @@ import {
 } from "@capnp-js/programmer-error";
 
 class Guts {
-  own: null | {|
+  own: null | {
     +arena: ArenaB,
     +pointer: Pointer<SegmentB>,
-  |};
+  };
 
   constructor(arena: ArenaB, pointer: Pointer<SegmentB>) {
     this.own = {
@@ -72,6 +72,8 @@ export default class Orphan<GUTS: AnyGutsR, R: {+guts: GUTS}, +B: ReaderCtor<GUT
   }
 
   move<GUTS_t: GUTS, R_t: {+guts: GUTS_t}, B_t: ReaderCtor<GUTS_t, R_t>>(Target: CtorB<GUTS_t, R_t, B_t>): Orphan<GUTS_t, R_t, B_t> {
+    //TODO: Rename move to cast(?)
+    //TODO: Why not admit moving attached orphans?
     if (this.guts.own === null) {
       throw new MoveNonorphanError();
     }

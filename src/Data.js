@@ -44,14 +44,14 @@ export default class Data {
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, DataR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
   static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, DataR, this> {
-    if (isNull(ref)) {
-      return null;
-    } else {
-      const p = arena.pointer(ref);
-      arena.zero(ref, 8);
-      return new Orphan(this, arena, p);
-    }
+    return isNull(ref) ? null : this.unref(level, arena, ref);
   }
 
   static validate(p: Pointer<SegmentB>): void {
