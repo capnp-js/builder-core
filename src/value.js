@@ -7,10 +7,12 @@ import type {
   StructGutsR,
   BoolListGutsR,
   NonboolListGutsR,
+  CapGutsR,
   AnyGutsR,
   AnyValue as AnyValueR,
   StructValue as StructValueR,
   ListValue as ListValueR,
+  CapValue as CapValueR,
 } from "@capnp-js/reader-core";
 //TODO: Ideally I'd like only types imported from the reader side so that bundles can possibly exclude reader-core
 
@@ -19,13 +21,14 @@ import type {
   AnyGutsB,
   CtorB,
   StructCtorB,
-  WeakListCtorB,
+  ListCtorB,
   ReaderCtor,
 } from "./index";
 
 import type { StructGutsB } from "./guts/struct";
 import type { BoolListGutsB } from "./guts/boolList";
 import type { NonboolListGutsB } from "./guts/nonboolList";
+import type { CapGutsB } from "./guts/cap";
 
 import { isNull } from "@capnp-js/memory";
 import { u3_mask } from "@capnp-js/tiny-uint";
@@ -131,7 +134,6 @@ export class StructValue {
   }
 
   static get(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | this {
-    //TODO: Do RefedBoolList and RefedNonboolList check that the pointer is a list pointer? 
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
@@ -214,7 +216,6 @@ export class ListValue {
   }
 
   static get(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | this {
-    //TODO: Do RefedBoolList and RefedNonboolList check that the pointer is a list pointer? 
     return isNull(ref) ? null : this.deref(level, arena, ref);
   }
 
@@ -258,11 +259,79 @@ export class ListValue {
     return Ctor.intern(this.guts);
   }
 
-  getAs<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>>(Ctor: WeakListCtorB<GUTS, R, B>): B {
+  getAs<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>>(Ctor: ListCtorB<GUTS, R, B>): B {
     return Ctor.fromAny(this.guts);
   }
 }
 (ListValue: CtorB<BoolListGutsR | NonboolListGutsR, ListValueR, ListValue>);
 
-//TODO: Try to getAs a CapValue reader from within a builder struct. If that
-//      proves impossible, then introduce a CapValue over here.
+export class CapValue {
+  +guts: CapGutsB;
+
+  static fromAny(guts: AnyGutsB): this {
+    if (guts.layout.tag === "capability") {
+      return new this((guts: any)); // eslint-disable-line flowtype/no-weak-types
+    } else {
+      if (guts.layout.tag === "struct") {
+         //TODO: This stretches the UnexpectedPointerType name. UnexpectedType works.
+        throw new PointerTypeError(["capability"], "struct");
+      } else {
+        //TODO: This stretches the UnexpectedPointerType name. UnexpectedType works.
+        //TODO: Flow refinement needs to dig down to make this work:
+        //      (guts.layout.tag: "non-bool list" | "bool list");
+        throw new PointerTypeError(["capability"], "list");
+      }
+    }
+  }
+
+  static deref(level: uint, arena: ArenaB, ref: Word<SegmentB>): this {
+    const p = arena.pointer(ref);
+    const guts = new Cap(arena.capLayout(p));
+    return new this(guts);
+  }
+
+  static get(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | this {
+    return isNull(ref) ? null : this.deref(level, arena, ref);
+  }
+
+  static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<CapGutsR, CapValueR, this> {
+    const p = arena.pointer(ref);
+    arena.zero(ref, 8);
+    return new Orphan(this, arena, p);
+  }
+
+  static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<CapGutsR, CapValueR, this> {
+    return isNull(ref) ? null : this.unref(level, arena, ref);
+  }
+
+  static validate(p: Pointer<SegmentB>): void {
+    if (p.typeBits !== 0x03) {
+      if (p.typeBits === 0x00) {
+        throw new PointerTypeError(["capability"], "struct");
+      } else {
+        (p.typeBits: 0x01);
+        throw new PointerTypeError(["capability"], "list");
+      }
+    }
+  }
+
+  static seizeOrphan<GUTS: CapGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>>(orphan: Orphan<GUTS, R, B>): Orphan<CapGutsR, CapValueR, CapValue> {
+    if (orphan.guts.own === null) {
+      throw new MoveNonorphanError();
+    }
+
+    const { arena, pointer } = orphan.guts.own;
+    const next = new Orphan(this, arena, pointer);
+    orphan.guts.own = null;
+    return next;
+  }
+
+  constructor(guts: CapGutsB) {
+    this.guts = guts;
+  }
+
+  reader(Ctor: CtorR<CapGutsR, CapValueR>): CapValueR {
+    return Ctor.intern(this.guts);
+  }
+}
+(CapValue: CtorB<CapGutsR, CapValueR, CapValue>);

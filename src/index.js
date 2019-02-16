@@ -18,11 +18,12 @@ import type {
   ArenaR,
   CtorR,
   DataListR,
-  ListListR,
+  PointerListR,
   StructListR,
   StructGutsR,
   BoolListGutsR,
   NonboolListGutsR,
+  CapGutsR,
   AnyGutsR,
 } from "@capnp-js/reader-core";
 
@@ -68,10 +69,10 @@ export interface StructCtorB<R: {+guts: StructGutsR}, B: ReaderCtor<StructGutsR,
   intern(guts: StructGutsB): B;
   compiledBytes(): Bytes;
 }
-export type WeakListCtorB<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> = CtorB<GUTS, R, B>;
 export interface ListCtorB<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> extends CtorB<GUTS, R, B> {
   encoding(): null | NonboolListEncoding;
 }
+export type PointerElementCtorB<GUTS: BoolListGutsR | NonboolListGutsR | CapGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> = CtorB<GUTS, R, B>;
 
 export interface DataListB<T> extends DataListR<T> {
   +guts: BoolListGutsB | NonboolListGutsB;
@@ -91,17 +92,17 @@ export interface StructListB<R: {+guts: StructGutsR}, B: ReaderCtor<StructGutsR,
 
 export type StructListCtorB<R: {+guts: StructGutsR}, B: ReaderCtor<StructGutsR, R>> = ListCtorB<NonboolListGutsR, StructListR<R>, StructListB<R, B>>;
 
-export interface ListListB<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> extends ListListR<GUTS, B>, ReaderCtor<NonboolListGutsR, ListListR<GUTS, R>> {
+export interface PointerListB<GUTS: BoolListGutsR | NonboolListGutsR | CapGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> extends PointerListR<GUTS, B>, ReaderCtor<NonboolListGutsR, PointerListR<GUTS, R>> {
   +guts: NonboolListGutsB;
   set(index: u29 | u30, value: R | B): void;
   disown(index: u29 | u30): null | Orphan<GUTS, R, B>;
   adopt(index: u29 | u30, value: Orphan<GUTS, R, B>): void;
-  map<T, THIS>(fn: (value: null | B, index: u29 | u30, list: ListListB<GUTS, R, B>) => T, thisArg?: THIS): Array<T>;
-  forEach<THIS>(fn: (value: null | B, index: u29 | u30, list: ListListB<GUTS, R, B>) => mixed, thisArg?: THIS): void;
-  reduce<T>(fn: (previous: T, current: null | B, index: u29 | u30, list: ListListB<GUTS, R, B>) => T, acc: T): T;
+  map<T, THIS>(fn: (value: null | B, index: u29 | u30, list: PointerListB<GUTS, R, B>) => T, thisArg?: THIS): Array<T>;
+  forEach<THIS>(fn: (value: null | B, index: u29 | u30, list: PointerListB<GUTS, R, B>) => mixed, thisArg?: THIS): void;
+  reduce<T>(fn: (previous: T, current: null | B, index: u29 | u30, list: PointerListB<GUTS, R, B>) => T, acc: T): T;
 }
 
-export type ListListCtorB<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> = ListCtorB<NonboolListGutsR, ListListR<GUTS, R>, ListListB<GUTS, R, B>>;
+export type PointerListCtorB<GUTS: BoolListGutsR | NonboolListGutsR | CapGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>> = ListCtorB<NonboolListGutsR, PointerListR<GUTS, R>, PointerListB<GUTS, R, B>>;
 
 export interface ArenaB extends SegmentLookup<SegmentB>, ArenaR {
   /* I explicitly repeat the `segment` method because the extends clause of this
@@ -160,7 +161,7 @@ export interface UserArenaB {
   ): Orphan<NonboolListGutsR, DataR, Data>;
 }
 
-export { AnyValue, StructValue, ListValue } from "./value";
+export { AnyValue, StructValue, ListValue, CapValue } from "./value";
 export { RefedStruct } from "./guts/struct";
 export { RefedBoolList } from "./guts/boolList";
 export { RefedNonboolList } from "./guts/nonboolList";

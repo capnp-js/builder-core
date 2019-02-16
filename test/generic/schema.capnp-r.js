@@ -7,7 +7,7 @@ import type {
   ArenaR,
   CtorR,
   StructCtorR,
-  ListListR,
+  PointerListR,
   AnyGutsR,
   StructGutsR,
   BoolListGutsR,
@@ -25,7 +25,7 @@ import {
   ListValue,
   Data,
   Text,
-  lists,
+  pointers,
 } from "@capnp-js/reader-core";
 
 type i16 = number;
@@ -130,9 +130,9 @@ function getB(): Trivial__InstanceR {
 /* c */
 /*****/
 
-function getC(): ListListR<NonboolListGutsR, Text> {
+function getC(): PointerListR<NonboolListGutsR, Text> {
   const meta = consts["0xd0f16bd5073acb18"];
-  return lists(Text).deref(0, blob, {
+  return pointers(Text).deref(0, blob, {
     segment: blob.segment(meta.segment),
     position: meta.position,
   });

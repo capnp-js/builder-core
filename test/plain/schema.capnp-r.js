@@ -9,7 +9,7 @@ import type {
   ArenaR,
   StructCtorR,
   StructListR,
-  ListListR,
+  PointerListR,
   AnyGutsR,
   StructGutsR,
   BoolListGutsR,
@@ -38,7 +38,7 @@ import {
   UInt64List,
   Float32List,
   Float64List,
-  lists,
+  pointers,
   structs,
 } from "@capnp-js/reader-core";
 
@@ -455,16 +455,16 @@ export class Lists__CtorR implements StructCtorR<Lists__InstanceR> {
       position: meta.position,
     });
   }
-  defaultDataList(): ListListR<NonboolListGutsR, Data> {
+  defaultDataList(): PointerListR<NonboolListGutsR, Data> {
     const meta = defaults["0x87c1c2a58b6ddc27"].uint8List;
-    return lists(Data).deref(0, blob, {
+    return pointers(Data).deref(0, blob, {
       segment: blob.segment(meta.segment),
       position: meta.position,
     });
   }
-  defaultTextList(): ListListR<NonboolListGutsR, Text> {
+  defaultTextList(): PointerListR<NonboolListGutsR, Text> {
     const meta = defaults["0x87c1c2a58b6ddc27"].uint8List;
-    return lists(Text).deref(0, blob, {
+    return pointers(Text).deref(0, blob, {
       segment: blob.segment(meta.segment),
       position: meta.position,
     });
@@ -551,15 +551,15 @@ export class Lists__InstanceR {
   }
 
   /* dataList */
-  getDataList(): null | ListListR<NonboolListGutsR, Data> {
+  getDataList(): null | PointerListR<NonboolListGutsR, Data> {
     const ref = this.guts.pointersWord(96);
-    return ref === null ? null : lists(Data).get(this.guts.level, this.guts.arena, ref);
+    return ref === null ? null : pointers(Data).get(this.guts.level, this.guts.arena, ref);
   }
 
   /* textList */
-  getTextList(): null | ListListR<NonboolListGutsR, Text> {
+  getTextList(): null | PointerListR<NonboolListGutsR, Text> {
     const ref = this.guts.pointersWord(104);
-    return ref === null ? null : lists(Text).get(this.guts.level, this.guts.arena, ref);
+    return ref === null ? null : pointers(Text).get(this.guts.level, this.guts.arena, ref);
   }
 }
 
@@ -645,9 +645,9 @@ export class Nesteds__InstanceR {
   }
 
   /* leavesListList */
-  getLeavesListList(): null | ListListR<NonboolListGutsR, StructListR<Leaves__InstanceR>> {
+  getLeavesListList(): null | PointerListR<NonboolListGutsR, StructListR<Leaves__InstanceR>> {
     const ref = this.guts.pointersWord(16);
-    return ref === null ? null : lists(structs(Leaves)).get(this.guts.level, this.guts.arena, ref);
+    return ref === null ? null : pointers(structs(Leaves)).get(this.guts.level, this.guts.arena, ref);
   }
 
   /* lists */
@@ -663,9 +663,9 @@ export class Nesteds__InstanceR {
   }
 
   /* listsListList */
-  getListsListList(): null | ListListR<NonboolListGutsR, StructListR<Lists__InstanceR>> {
+  getListsListList(): null | PointerListR<NonboolListGutsR, StructListR<Lists__InstanceR>> {
     const ref = this.guts.pointersWord(40);
-    return ref === null ? null : lists(structs(Lists)).get(this.guts.level, this.guts.arena, ref);
+    return ref === null ? null : pointers(structs(Lists)).get(this.guts.level, this.guts.arena, ref);
   }
 }
 

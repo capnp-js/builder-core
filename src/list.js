@@ -8,10 +8,11 @@ import type { Pointer, SegmentB, Word } from "@capnp-js/memory";
 import type {
   CtorR,
   StructListR,
-  ListListR,
+  PointerListR,
   StructGutsR,
   BoolListGutsR,
   NonboolListGutsR,
+  CapGutsR,
   VoidList as VoidListR,
   BoolList as BoolListR,
   Int8List as Int8ListR,
@@ -31,13 +32,13 @@ import type {
   AnyGutsB,
   ReaderCtor,
   StructCtorB,
-  WeakListCtorB,
+  PointerElementCtorB,
   ListCtorB,
   DataListB,
   StructListCtorB,
-  ListListCtorB,
+  PointerListCtorB,
   StructListB,
-  ListListB,
+  PointerListB,
 } from "./index";
 
 import type { BoolListGutsB } from "./guts/boolList";
@@ -206,8 +207,8 @@ export function structs<R: {+guts: StructGutsR}, B: ReaderCtor<StructGutsR, R>>(
   };
 }
 
-export function lists<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>>(Element: WeakListCtorB<GUTS, R, B>): ListListCtorB<GUTS, R, B> {
-  return class Lists implements ListListB<GUTS, R, B> {
+export function pointers<GUTS: BoolListGutsR | NonboolListGutsR | CapGutsR, R: {+guts: GUTS}, B: ReaderCtor<GUTS, R>>(Element: PointerElementCtorB<GUTS, R, B>): PointerListCtorB<GUTS, R, B> {
+  return class Pointers implements PointerListB<GUTS, R, B> {
     +guts: NonboolListGutsB;
 
     static fromAny(guts: AnyGutsB): this {
@@ -223,13 +224,13 @@ export function lists<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, 
       return isNull(ref) ? null : this.deref(level, arena, ref);
     }
 
-    static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, ListListR<GUTS, R>, this> {
+    static unref(level: uint, arena: ArenaB, ref: Word<SegmentB>): Orphan<NonboolListGutsR, PointerListR<GUTS, R>, this> {
       const p = arena.pointer(ref);
       arena.zero(ref, 8);
       return new Orphan(this, arena, p);
     }
 
-    static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, ListListR<GUTS, R>, this> {
+    static disown(level: uint, arena: ArenaB, ref: Word<SegmentB>): null | Orphan<NonboolListGutsR, PointerListR<GUTS, R>, this> {
       return isNull(ref) ? null : this.unref(level, arena, ref);
     }
 
@@ -260,7 +261,7 @@ export function lists<GUTS: BoolListGutsR | NonboolListGutsR, R: {+guts: GUTS}, 
       this.guts = guts;
     }
 
-    reader(Ctor: CtorR<NonboolListGutsR, ListListR<GUTS, R>>): ListListR<GUTS, R> {
+    reader(Ctor: CtorR<NonboolListGutsR, PointerListR<GUTS, R>>): PointerListR<GUTS, R> {
       return Ctor.intern(this.guts);
     }
 

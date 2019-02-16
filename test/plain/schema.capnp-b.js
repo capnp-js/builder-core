@@ -10,7 +10,7 @@ import type {
   BoolListGutsR,
   NonboolListGutsR,
   StructListR,
-  ListListR,
+  PointerListR,
   Data as DataR,
   Text as TextR,
   VoidList as VoidListR,
@@ -32,7 +32,7 @@ import type {
   StructGutsB,
   StructCtorB,
   StructListB,
-  ListListB,
+  PointerListB,
 } from "@capnp-js/builder-core";
 
 import type {
@@ -63,8 +63,8 @@ import {
   UInt64List,
   Float32List,
   Float64List,
-  lists,
   structs,
+  pointers,
 } from "@capnp-js/builder-core";
 
 type uint = number;
@@ -568,37 +568,37 @@ export class Lists__InstanceB {
   }
 
   /* dataList */
-  getDataList(): null | ListListB<NonboolListGutsR, DataR, Data> {
+  getDataList(): null | PointerListB<NonboolListGutsR, DataR, Data> {
     const ref = this.guts.pointersWord(96);
-    return lists(Data).get(this.guts.level, this.guts.arena, ref);
+    return pointers(Data).get(this.guts.level, this.guts.arena, ref);
   }
-  setDataList(value: ListListR<NonboolListGutsR, DataR> | ListListB<NonboolListGutsR, DataR, Data>): void {
+  setDataList(value: PointerListR<NonboolListGutsR, DataR> | PointerListB<NonboolListGutsR, DataR, Data>): void {
     const ref = this.guts.pointersWord(96);
     value.guts.set(this.guts.level, this.guts.arena, ref);
   }
-  disownDataList(): null | Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, DataR>, ListListB<NonboolListGutsR, DataR, Data>> {
+  disownDataList(): null | Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, DataR>, PointerListB<NonboolListGutsR, DataR, Data>> {
     const ref = this.guts.pointersWord(96);
-    return lists(Data).disown(this.guts.level, this.guts.arena, ref);
+    return pointers(Data).disown(this.guts.level, this.guts.arena, ref);
   }
-  adoptDataList(orphan: Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, DataR>, ListListB<NonboolListGutsR, DataR, Data>>): void {
+  adoptDataList(orphan: Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, DataR>, PointerListB<NonboolListGutsR, DataR, Data>>): void {
     const ref = this.guts.pointersWord(96);
     orphan.guts.adopt(this.guts.arena, ref);
   }
 
   /* textList */
-  getTextList(): null | ListListB<NonboolListGutsR, TextR, Text> {
+  getTextList(): null | PointerListB<NonboolListGutsR, TextR, Text> {
     const ref = this.guts.pointersWord(104);
-    return lists(Text).get(this.guts.level, this.guts.arena, ref);
+    return pointers(Text).get(this.guts.level, this.guts.arena, ref);
   }
-  setTextList(value: ListListR<NonboolListGutsR, TextR> | ListListB<NonboolListGutsR, TextR, Text>): void {
+  setTextList(value: PointerListR<NonboolListGutsR, TextR> | PointerListB<NonboolListGutsR, TextR, Text>): void {
     const ref = this.guts.pointersWord(104);
     value.guts.set(this.guts.level, this.guts.arena, ref);
   }
-  disownTextList(): null | Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, TextR>, ListListB<NonboolListGutsR, TextR, Text>> {
+  disownTextList(): null | Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, TextR>, PointerListB<NonboolListGutsR, TextR, Text>> {
     const ref = this.guts.pointersWord(104);
-    return lists(Text).disown(this.guts.level, this.guts.arena, ref);
+    return pointers(Text).disown(this.guts.level, this.guts.arena, ref);
   }
-  adoptTextList(orphan: Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, TextR>, ListListB<NonboolListGutsR, TextR, Text>>): void {
+  adoptTextList(orphan: Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, TextR>, PointerListB<NonboolListGutsR, TextR, Text>>): void {
     const ref = this.guts.pointersWord(104);
     orphan.guts.adopt(this.guts.arena, ref);
   }
@@ -693,19 +693,19 @@ export class Nesteds__InstanceB {
   }
 
   /* leavesListList */
-  getLeavesListList(): null | ListListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>> {
+  getLeavesListList(): null | PointerListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>> {
     const ref = this.guts.pointersWord(16);
-    return lists(structs(Leaves)).get(this.guts.level, this.guts.arena, ref);
+    return pointers(structs(Leaves)).get(this.guts.level, this.guts.arena, ref);
   }
-  setLeavesListList(value: ListListR<NonboolListGutsR, StructListR<Leaves__InstanceR>> | ListListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>>): void {
+  setLeavesListList(value: PointerListR<NonboolListGutsR, StructListR<Leaves__InstanceR>> | PointerListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>>): void {
     const ref = this.guts.pointersWord(16);
     value.guts.set(this.guts.level, this.guts.arena, ref);
   }
-  disownLeavesListList(): null | Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, StructListR<Leaves__InstanceR>>, ListListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>>> {
+  disownLeavesListList(): null | Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, StructListR<Leaves__InstanceR>>, PointerListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>>> {
     const ref = this.guts.pointersWord(16);
-    return lists(structs(Leaves)).disown(this.guts.level, this.guts.arena, ref);
+    return pointers(structs(Leaves)).disown(this.guts.level, this.guts.arena, ref);
   }
-  adoptLeavesListList(orphan: Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, StructListR<Leaves__InstanceR>>, ListListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>>>): void {
+  adoptLeavesListList(orphan: Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, StructListR<Leaves__InstanceR>>, PointerListB<NonboolListGutsR, StructListR<Leaves__InstanceR>, StructListB<Leaves__InstanceR, Leaves__InstanceB>>>): void {
     const ref = this.guts.pointersWord(16);
     orphan.guts.adopt(this.guts.arena, ref);
   }
@@ -747,19 +747,19 @@ export class Nesteds__InstanceB {
   }
 
   /* listsListList */
-  getListsListList(): null | ListListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>> {
+  getListsListList(): null | PointerListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>> {
     const ref = this.guts.pointersWord(40);
-    return lists(structs(Lists)).get(this.guts.level, this.guts.arena, ref);
+    return pointers(structs(Lists)).get(this.guts.level, this.guts.arena, ref);
   }
-  setListsListList(value: ListListR<NonboolListGutsR, StructListR<Lists__InstanceR>> | ListListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>>): void {
+  setListsListList(value: PointerListR<NonboolListGutsR, StructListR<Lists__InstanceR>> | PointerListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>>): void {
     const ref = this.guts.pointersWord(40);
     value.guts.set(this.guts.level, this.guts.arena, ref);
   }
-  disownListsListList(): null | Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, StructListR<Lists__InstanceR>>, ListListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>>> {
+  disownListsListList(): null | Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, StructListR<Lists__InstanceR>>, PointerListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>>> {
     const ref = this.guts.pointersWord(40);
-    return lists(structs(Lists)).disown(this.guts.level, this.guts.arena, ref);
+    return pointers(structs(Lists)).disown(this.guts.level, this.guts.arena, ref);
   }
-  adoptListsListList(orphan: Orphan<NonboolListGutsR, ListListR<NonboolListGutsR, StructListR<Lists__InstanceR>>, ListListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>>>): void {
+  adoptListsListList(orphan: Orphan<NonboolListGutsR, PointerListR<NonboolListGutsR, StructListR<Lists__InstanceR>>, PointerListB<NonboolListGutsR, StructListR<Lists__InstanceR>, StructListB<Lists__InstanceR, Lists__InstanceB>>>): void {
     const ref = this.guts.pointersWord(40);
     orphan.guts.adopt(this.guts.arena, ref);
   }
