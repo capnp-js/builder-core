@@ -1,6 +1,7 @@
 /* @flow */
 
 import type { SegmentB, Word } from "@capnp-js/memory";
+import { get } from "@capnp-js/bytes";
 import { int32 as decode } from "@capnp-js/read-data";
 import { int32 as encode } from "@capnp-js/write-data";
 import { u2_mask } from "@capnp-js/tiny-uint";
@@ -23,7 +24,7 @@ export function localRetarget(arena: ArenaB, stale: Word<SegmentB>, fresh: Word<
     return;
   }
 
-  const typeBits = u2_mask(stale.segment.raw[stale.position], 0x03);
+  const typeBits = u2_mask(get(stale.position, stale.segment.raw), 0x03);
   if (typeBits === 0x03) {
     arena.write(stale, 8, fresh);
     arena.zero(stale, 8);

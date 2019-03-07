@@ -13,6 +13,7 @@ import type { ArenaB, AnyGutsB, ListCtorB } from "./index";
 
 import type { NonboolListGutsB } from "./guts/nonboolList";
 
+import { getSubarray } from "@capnp-js/bytes";
 import { PointerTypeError, ListAlignmentError } from "@capnp-js/internal-error";
 import { isStaleList, listEncodings } from "@capnp-js/layout";
 import { isNull } from "@capnp-js/memory";
@@ -87,7 +88,7 @@ export default class Data {
 
   asBytes(): BytesB {
     const end = this.guts.layout.begin + this.guts.layout.length;
-    return this.guts.segment.raw.subarray(this.guts.layout.begin, end);
+    return getSubarray(this.guts.layout.begin, end, this.guts.segment.raw);
   }
 }
 (Data: ListCtorB<NonboolListGutsR, DataR, Data>);

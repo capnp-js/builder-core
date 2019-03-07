@@ -6,6 +6,7 @@ import type { StructGutsR } from "@capnp-js/reader-core";
 
 import type { ArenaB, AnyGutsB } from "../index";
 
+import { get, set } from "@capnp-js/bytes";
 import { uint16 as decodeTag } from "@capnp-js/read-data";
 import { uint16 as encodeTag } from "@capnp-js/write-data";
 import { isStaleStruct, structBytes } from "@capnp-js/layout";
@@ -109,7 +110,10 @@ export class InlineStruct implements StructGutsB {
   }
 
   maskPartialDataBytes(partialBytes: MaskedBytes): void {
-    partialBytes.forEach(zeros => { this.segment.raw[this.layout.dataSection + zeros[0]] &= zeros[1]; });
+    partialBytes.forEach(zeros => {
+      const position = this.layout.dataSection + zeros[0];
+      set(get(position, this.segment.raw) & zeros[1], position, this.segment.raw);
+    });
   }
 
   zeroDataBytes(bytes: ByteSequences): void {
